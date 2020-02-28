@@ -6,7 +6,7 @@ import seaborn as sns
 
 customer_data = pd.read_csv("customer_data.csv")
 sales_detail = pd.read_csv("sales_detal.csv")
-sales_summary= pd.read_csv("sales_summary.csv")
+sales_summary= pd.read_csv("sales_summary.csv").sort_values('customer_id')
 
 print(customer_data.head())
 print(sales_detail.head())
