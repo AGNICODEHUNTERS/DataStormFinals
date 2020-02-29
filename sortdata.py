@@ -9,7 +9,7 @@ sales_detail = pd.read_csv("sales_detal.csv").sort_values(['customer_id','year',
 sales_detail = pd.get_dummies(sales_detail,columns=['catagory_code'],prefix='',prefix_sep='')
 sales_summary= pd.read_csv("sales_summary.csv").sort_values(['customer_id','year','month'],ascending=True)
 
-sales = pd.merge_asof(sales_summary, sales_detail, on='customer_id', by=['year','month'])
+sales = pd.merge_asof(sales_detail,sales_summary, on='customer_id', by =['year','month'])
 
 print(customer_data.head())
 print(sales_detail.head())
