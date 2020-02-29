@@ -1,9 +1,9 @@
 import pandas as pd
 
 test_detail = pd.read_csv('test_detail.csv').sort_values(['customer_id','year','month'],ascending=True).drop('end_date',axis=1)
-test_summary = pd.read_csv('test_summary.csv').sort_values(['customer_id','year','month'],ascending=True)
+test_summary = pd.read_csv('test_summary.csv').sort_values(['customer_id','year','month'],ascending=True).drop('end_date',axis=1)
 train_detail = pd.read_csv('train_detail.csv').sort_values(['customer_id','year','month'],ascending=True).drop('end_date',axis=1)
-train_summary = pd.read_csv('train_summary.csv').sort_values(['customer_id','year','month'],ascending=True)
+train_summary = pd.read_csv('train_summary.csv').sort_values(['customer_id','year','month'],ascending=True).drop('end_date',axis=1)
 customer_data = pd.read_csv('customer_data .csv').sort_values('customer_id',ascending=True)
 
 
