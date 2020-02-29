@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import seaborn as sns
 
-sales_detail = pd.read_csv("sales_detail .csv").sort_values(['customer_id','year','month'],ascending=True)
+sales_detail = pd.read_csv("full_sales_detail .csv").sort_values(['customer_id','year','month'],ascending=True)
 sales_detail = pd.get_dummies(sales_detail,columns=['catagory_code'],prefix='',prefix_sep='')
+
 sales_summary= pd.read_csv("sales_summary .csv").sort_values(['customer_id','year','month'],ascending=True)
 
 sales_summary_ed = sales_summary.groupby(['year','month'])
