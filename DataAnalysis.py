@@ -33,8 +33,8 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 import os
 #print(os.listdir("../input"))
 
-data = pd.read_csv('train_summary.csv')
-testData= pd.read_csv('test_summary.csv')
+data = pd.read_csv('train.csv')
+testData= pd.read_csv('test.csv')
 '''
 def numeric(dataSheet):
     bal = dataSheet.Balance_Limit_V1
@@ -148,20 +148,36 @@ print("SUMMARY STATISTICS OF NUMERIC COLUMNS")
 print(data.describe().T)
 
 ###Creating a new dataframe with categorical variables###
-subset = data[['Gender', 'year', 'month']]
+subset = data[['gender', 'year', 'month','Churn']]
 
-f, axes = plt.subplots(3, 1, figsize=(35, 30), facecolor='white')
+f, axes = plt.subplots(3, 3, figsize=(55, 50), facecolor='white')
 f.suptitle('FREQUENCY OF CATEGORICAL VARIABLES (BY TARGET)')
-ax1 = sns.countplot(x="Gender", hue="Default", data=subset, palette="Blues", ax=axes[0,0])
-ax2 = sns.countplot(x="year", hue="Default", data=subset, palette="Blues",ax=axes[0,1])
-ax3 = sns.countplot(x="month", hue="Default", data=subset, palette="Blues",ax=axes[0,2])
+ax1 = sns.countplot(x="gender", hue="Churn", data=subset, palette="Blues", ax=axes[0,0])
+ax2 = sns.countplot(x="year", hue="Churn", data=subset, palette="Blues",ax=axes[0,1])
+ax3 = sns.countplot(x="month", hue="Churn", data=subset, palette="Blues",ax=axes[0,2])
 '''ax4 = sns.countplot(x="PAY_JULY", hue="Default", data=subset, palette="Blues", ax=axes[1,0])
 ax5 = sns.countplot(x="PAY_AUG", hue="Default", data=subset, palette="Blues", ax=axes[1,1])
 ax6 = sns.countplot(x="PAY_SEP", hue="Default", data=subset, palette="Blues", ax=axes[1,2])
 ax7 = sns.countplot(x="PAY_OCT", hue="Default", data=subset, palette="Blues", ax=axes[2,0])
 ax8 = sns.countplot(x="PAY_NOV", hue="Default", data=subset, palette="Blues", ax=axes[2,1])
 ax9 = sns.countplot(x="PAY_DEC", hue="Default", data=subset, palette="Blues", ax=axes[2,2]);'''
-plt.show()
+
+###Plot for categories###
+subset = data[['B106', 'B107', 'B108','B109','B110','B111','B112','B113','B114','B115','B107','B107','B107','B107']]
+
+f, axes = plt.subplots(3, 3, figsize=(55, 50), facecolor='white')
+f.suptitle('FREQUENCY OF CATEGORICAL VARIABLES (BY TARGET)')
+ax1 = sns.countplot(x="gender", hue="Churn", data=subset, palette="Blues", ax=axes[0,0])
+ax2 = sns.countplot(x="year", hue="Churn", data=subset, palette="Blues",ax=axes[0,1])
+ax3 = sns.countplot(x="month", hue="Churn", data=subset, palette="Blues",ax=axes[0,2])
+'''ax4 = sns.countplot(x="PAY_JULY", hue="Default", data=subset, palette="Blues", ax=axes[1,0])
+ax5 = sns.countplot(x="PAY_AUG", hue="Default", data=subset, palette="Blues", ax=axes[1,1])
+ax6 = sns.countplot(x="PAY_SEP", hue="Default", data=subset, palette="Blues", ax=axes[1,2])
+ax7 = sns.countplot(x="PAY_OCT", hue="Default", data=subset, palette="Blues", ax=axes[2,0])
+ax8 = sns.countplot(x="PAY_NOV", hue="Default", data=subset, palette="Blues", ax=axes[2,1])
+ax9 = sns.countplot(x="PAY_DEC", hue="Default", data=subset, palette="Blues", ax=axes[2,2]);'''
+
+
 ###PLotting a histogram###
 x1 = list(data[data['Default'] == 1]['balF'])
 x2 = list(data[data['Default'] == 0]['balF'])
