@@ -8,9 +8,9 @@ customer_data = pd.read_csv('customer_data .csv').sort_values('customer_id',asce
 
 
 train = pd.merge_asof(train_detail,train_summary,on = 'customer_id',by=['year','month'])
-#train = pd.merge_asof(train,customer_data,on='customer_id')
+train = pd.merge_asof(train,customer_data,on='customer_id')
 test = pd.merge_asof(test_detail,test_summary,on = 'customer_id',by=['year','month'])
-#test = pd.merge_asof(test,customer_data,on='customer_id')
+test = pd.merge_asof(test,customer_data,on='customer_id')
 
 train.to_csv('train.csv',index = False)
 test.to_csv('test.csv',index = False)
