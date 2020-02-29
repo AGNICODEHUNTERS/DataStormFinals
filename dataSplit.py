@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import seaborn as sns
 
-customer_data = pd.read_csv("customer_data .csv").sort_values('customer_id').dropna()
 sales_detail = pd.read_csv("sales_detail .csv").sort_values(['customer_id','year','month'],ascending=True)
 sales_detail = pd.get_dummies(sales_detail,columns=['catagory_code'],prefix='',prefix_sep='')
 sales_summary= pd.read_csv("sales_summary .csv").sort_values(['customer_id','year','month'],ascending=True)
