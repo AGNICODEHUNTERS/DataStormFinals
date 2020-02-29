@@ -14,5 +14,5 @@ sales_summary_ed = sales_summary.groupby(['year','month'])
 sales_summary_test = sales_summary_ed.get_group((2019,12))
 sales_summary_train = sales_summary.drop(index = sales_summary_test.index)
 
-sales_summary_test.to_csv('train_summary.csv',index=False)
-sales_summary_train.to_csv('test_summary.csv',index = False)
+sales_summary_test.to_csv('test_summary.csv',index=False)
+sales_summary_train.to_csv('train_summary.csv',index = False)
