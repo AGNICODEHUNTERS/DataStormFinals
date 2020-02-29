@@ -96,13 +96,13 @@ def numeric(dataSheet):
     return dataSheet'''
 
 print(data.head())
-data.rename(columns={"NEXT_MONTH_DEFAULT": "Default"}, inplace=True)
-#print(data.sample(5))
-data.drop('Client_ID', axis = 1, inplace =True) # drop column "ID"
+
+#data.drop('Client_ID', axis = 1, inplace =True) # drop column "ID"
 #print(data.info())
 
 # Separating features and target
-y = data.Default     # target default=1 or non-default=0
+y = data.Churn
+print(y)     # target default=1 or non-default=0
 features = data.drop('Default', axis = 1, inplace = False)
 print(data)
 ###data=pd.get_dummies(data)
