@@ -102,9 +102,9 @@ print(data.head())
 
 # Separating features and target
 y = data.Churn
-print(y)     # target default=1 or non-default=0
-features = data.drop('Default', axis = 1, inplace = False)
-print(data)
+     # target default=1 or non-default=0
+features = data.drop('Churn', axis = 1, inplace = False)
+
 ###data=pd.get_dummies(data)
 
 ###merging of data###
@@ -120,9 +120,10 @@ data['MARRIAGE'].unique()'''
                         ###EDA###
 
 ###The frequency of defaults###
-yes = data.Default.sum()
+yes = data.Churn.sum()
 no = len(data)-yes
-
+print(yes)
+print(no)
 ###Percentage###
 yes_perc = round(yes/len(data)*100, 1)
 no_perc = round(no/len(data)*100, 1)
@@ -130,12 +131,12 @@ no_perc = round(no/len(data)*100, 1)
 import sys
 plt.figure(figsize=(7,4))
 sns.set_context('notebook', font_scale=1.2)
-sns.countplot('Default',data=data, palette="Blues")
-plt.annotate('Non-default: {}'.format(no), xy=(-0.3, 15000), xytext=(-0.3, 3000), size=12)
-plt.annotate('Default: {}'.format(yes), xy=(0.7, 15000), xytext=(0.7, 3000), size=12)
+sns.countplot('Churn',data=data, palette="Blues")
+plt.annotate('No Churn: {}'.format(no), xy=(-0.3, 15000), xytext=(-0.3, 3000), size=12)
+plt.annotate('Churn: {}'.format(yes), xy=(0.7, 15000), xytext=(0.7, 3000), size=12)
 plt.annotate(str(no_perc)+" %", xy=(-0.3, 15000), xytext=(-0.1, 8000), size=12)
 plt.annotate(str(yes_perc)+" %", xy=(0.7, 15000), xytext=(0.9, 8000), size=12)
-plt.title('COUNT OF CREDIT CARDS', size=14)
+plt.title('COUNT OF CHURN', size=14)
 ####Removing the frame###
 plt.box(False);
 
@@ -144,25 +145,23 @@ set_option('display.width', 100)
 set_option('precision', 2)
 
 print("SUMMARY STATISTICS OF NUMERIC COLUMNS")
-print()
 print(data.describe().T)
 
 ###Creating a new dataframe with categorical variables###
-subset = data[['Gender', 'EDUCATION_STATUS', 'MARITAL_STATUS', 'PAY_JULY', 'PAY_AUG', 'PAY_SEP', 'PAY_OCT',
-               'PAY_NOV', 'PAY_DEC', 'Default']]
+subset = data[['Gender', 'year', 'month']]
 
-f, axes = plt.subplots(3, 3, figsize=(35, 30), facecolor='white')
+f, axes = plt.subplots(3, 1, figsize=(35, 30), facecolor='white')
 f.suptitle('FREQUENCY OF CATEGORICAL VARIABLES (BY TARGET)')
 ax1 = sns.countplot(x="Gender", hue="Default", data=subset, palette="Blues", ax=axes[0,0])
-ax2 = sns.countplot(x="EDUCATION_STATUS", hue="Default", data=subset, palette="Blues",ax=axes[0,1])
-ax3 = sns.countplot(x="MARITAL_STATUS", hue="Default", data=subset, palette="Blues",ax=axes[0,2])
-ax4 = sns.countplot(x="PAY_JULY", hue="Default", data=subset, palette="Blues", ax=axes[1,0])
+ax2 = sns.countplot(x="year", hue="Default", data=subset, palette="Blues",ax=axes[0,1])
+ax3 = sns.countplot(x="month", hue="Default", data=subset, palette="Blues",ax=axes[0,2])
+'''ax4 = sns.countplot(x="PAY_JULY", hue="Default", data=subset, palette="Blues", ax=axes[1,0])
 ax5 = sns.countplot(x="PAY_AUG", hue="Default", data=subset, palette="Blues", ax=axes[1,1])
 ax6 = sns.countplot(x="PAY_SEP", hue="Default", data=subset, palette="Blues", ax=axes[1,2])
 ax7 = sns.countplot(x="PAY_OCT", hue="Default", data=subset, palette="Blues", ax=axes[2,0])
 ax8 = sns.countplot(x="PAY_NOV", hue="Default", data=subset, palette="Blues", ax=axes[2,1])
-ax9 = sns.countplot(x="PAY_DEC", hue="Default", data=subset, palette="Blues", ax=axes[2,2]);
-
+ax9 = sns.countplot(x="PAY_DEC", hue="Default", data=subset, palette="Blues", ax=axes[2,2]);'''
+plt.show()
 ###PLotting a histogram###
 x1 = list(data[data['Default'] == 1]['balF'])
 x2 = list(data[data['Default'] == 0]['balF'])
@@ -237,25 +236,3 @@ plt.title('Linear Regression: distinguishing between Default and Non-default', s
 sns.lmplot(x='Default', y= 'PAY_AUG', data = data, hue ='Default',palette='coolwarm')
 plt.title('Linear Regression: Cannot distinguish between Default and Non-default', size=16);
 print('Uncorrelated data are poentially more useful: discrimentory!')'''
-
-# Original dataset
-X = data.drop('Default', axis=1)
-y = data['Default']
-
-X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, stratify=y, random_state=42)
-# Dataset with standardized features
-Xstd_train, Xstd_test, ystd_train, ystd_test = train_test_split(stdX,y, test_size=0.2, stratify=y,random_state=42)
-
-NUM_FEATURES = 3
-model = LogisticRegression()
-rfe_stand = RFE(model, NUM_FEATURES)
-fit_stand = rfe_stand.fit(X, y)
-#print("St Model Num Features:", fit_stand.n_features_)
-#print("St Model Selected Features:", fit_stand.support_)
-print("Std Model Feature Ranking:", fit_stand.ranking_)
-# calculate the score for the selected features
-score_stand = rfe_stand.score(X,y)
-print("Standardized Model Score with selected features is: %f (%f)" % (score_stand.mean(), score_stand.std()))
-
-feature_names = np.array(features.columns)
-print('Most important features (RFE): %s'% feature_names[rfe_stand.support_])
